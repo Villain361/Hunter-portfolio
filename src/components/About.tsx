@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { FileText, Coffee, Code, Gamepad, Bot, Music, Book, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -58,14 +59,55 @@ const About = () => {
             <div className="relative reveal opacity-0" style={{ transitionDelay: '0.2s' }}>
               <div className="absolute -left-4 -top-4 w-full h-full border-2 border-primary/20 rounded-2xl"></div>
               <motion.div 
-                className="relative z-10 aspect-[4/5] overflow-hidden rounded-2xl bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center"
+                className="relative z-10 aspect-[4/5] overflow-hidden rounded-2xl flex items-center justify-center"
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
+                {/* Enhanced image with colorful prism effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 mix-blend-overlay"></div>
+                <div className="absolute -inset-2 bg-gradient-to-br from-primary/20 to-secondary/20 opacity-50 blur-xl z-0"></div>
+                
+                <div className="absolute inset-0 overflow-hidden z-0">
+                  {/* Animated prism light effects */}
+                  {[...Array(8)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="absolute bg-gradient-to-r from-primary/30 via-secondary/30 to-transparent"
+                      style={{
+                        height: '150%',
+                        width: '30px',
+                        top: '-25%',
+                        left: `${(i * 15) - 10}%`,
+                        transform: 'rotate(30deg)',
+                        opacity: 0.3,
+                        filter: 'blur(8px)',
+                      }}
+                      animate={{
+                        left: [`${(i * 15) - 10}%`, `${(i * 15) + 10}%`, `${(i * 15) - 10}%`],
+                      }}
+                      transition={{
+                        duration: 3 + i,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                    />
+                  ))}
+                </div>
+                
                 <img 
                   src="/lovable-uploads/a0bccd48-79a2-4b65-8423-9b7191000966.png" 
                   alt="Hunter's Profile"
-                  className="w-full h-full object-cover filter contrast-125 hover:filter-none transition-all duration-500"
+                  className="w-full h-full object-cover relative z-10 filter contrast-110 hover:filter-none transition-all duration-500"
+                  style={{
+                    boxShadow: '0 0 30px rgba(0,123,255,0.2) inset',
+                  }}
+                />
+                
+                {/* Interactive overlay effect on hover */}
+                <motion.div 
+                  className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent opacity-0 z-20"
+                  whileHover={{ opacity: 0.5 }}
+                  transition={{ duration: 0.3 }}
                 />
               </motion.div>
             </div>

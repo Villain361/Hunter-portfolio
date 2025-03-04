@@ -8,6 +8,7 @@ import Projects from '@/components/Projects';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import ScrollToTop from '@/components/ScrollToTop';
+import MusicPlayer from '@/components/MusicPlayer';
 import { toast } from '@/components/ui/use-toast';
 
 const Index = () => {
@@ -79,6 +80,7 @@ const Index = () => {
       </main>
       <Footer />
       <ScrollToTop />
+      <MusicPlayer />
     </div>
   );
 };
