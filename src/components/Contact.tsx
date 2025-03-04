@@ -1,6 +1,6 @@
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter, Instagram, ExternalLink } from 'lucide-react';
+import { Mail, MapPin, Send, Github, Instagram, ExternalLink, Bot } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { toast } from '@/components/ui/use-toast';
 
@@ -24,6 +24,8 @@ const SocialButton = ({ href, icon, label }: { href: string; icon: React.ReactNo
       whileHover={{ scale: 1.1, rotate: 5 }}
       whileTap={{ scale: 0.95 }}
       aria-label={label}
+      target="_blank"
+      rel="noopener noreferrer"
     >
       {icon}
     </motion.a>
@@ -113,8 +115,8 @@ const Contact = () => {
                   </div>
                   <div className="ml-4">
                     <h4 className="text-sm font-medium text-foreground/70 mb-1">Email</h4>
-                    <a href="mailto:your.email@example.com" className="text-lg hover:text-primary transition-colors">
-                      your.email@example.com
+                    <a href="mailto:freegamer758808@gmail.com" className="text-lg hover:text-primary transition-colors">
+                      freegamer758808@gmail.com
                     </a>
                   </div>
                 </motion.div>
@@ -125,12 +127,12 @@ const Contact = () => {
                   transition={{ type: "spring", stiffness: 300, damping: 10 }}
                 >
                   <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 text-primary">
-                    <MapPin size={20} />
+                    <Bot size={20} />
                   </div>
                   <div className="ml-4">
-                    <h4 className="text-sm font-medium text-foreground/70 mb-1">Location</h4>
+                    <h4 className="text-sm font-medium text-foreground/70 mb-1">Discord Bots</h4>
                     <p className="text-lg">
-                      Your City, Your Country
+                      Want a custom Discord bot?
                     </p>
                   </div>
                 </motion.div>
@@ -140,12 +142,82 @@ const Contact = () => {
                 <h3 className="text-xl font-display font-semibold mb-6">Let's Connect</h3>
                 
                 <div className="flex space-x-4">
+                  <SocialButton href="https://www.tiktok.com/@villain...2008" icon={<ExternalLink size={20} />} label="TikTok" />
+                  <SocialButton href="https://www.instagram.com/villain.2008" icon={<Instagram size={20} />} label="Instagram" />
                   <SocialButton href="#" icon={<Github size={20} />} label="GitHub" />
-                  <SocialButton href="#" icon={<Linkedin size={20} />} label="LinkedIn" />
-                  <SocialButton href="#" icon={<Twitter size={20} />} label="Twitter" />
-                  <SocialButton href="#" icon={<Instagram size={20} />} label="Instagram" />
                 </div>
               </div>
+            </motion.div>
+
+            {/* Interactive Element */}
+            <motion.div 
+              className="mt-8 p-6 rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10 text-center"
+              whileHover={{ 
+                boxShadow: "0 0 30px 5px rgba(0, 123, 255, 0.3)", 
+                scale: 1.02
+              }}
+            >
+              <h4 className="font-medium mb-3">Click to activate pixie dust!</h4>
+              <motion.button
+                className="bg-primary/20 hover:bg-primary text-primary hover:text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto transition-colors"
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                whileTap={{ 
+                  scale: 0.9,
+                  rotate: 0,
+                }}
+                onClick={() => {
+                  // Create pixie dust animation
+                  const colors = ["#007BFF", "#9C27B0", "#00E5FF", "#FF4081"];
+                  for (let i = 0; i < 30; i++) {
+                    const particle = document.createElement("div");
+                    document.body.appendChild(particle);
+                    
+                    // Random position around the cursor
+                    const mouseX = window.innerWidth / 2;
+                    const mouseY = window.innerHeight / 2;
+                    
+                    particle.style.left = `${mouseX}px`;
+                    particle.style.top = `${mouseY}px`;
+                    
+                    particle.style.position = "fixed";
+                    particle.style.width = "10px";
+                    particle.style.height = "10px";
+                    particle.style.borderRadius = "50%";
+                    particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    particle.style.pointerEvents = "none";
+                    particle.style.zIndex = "9999";
+                    
+                    // Random directions
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = Math.random() * 80 + 50;
+                    const vx = Math.cos(angle) * speed;
+                    const vy = Math.sin(angle) * speed;
+                    
+                    // Animate
+                    const animation = particle.animate(
+                      [
+                        { transform: "translate(0, 0) scale(1)", opacity: 1 },
+                        { transform: `translate(${vx}px, ${vy}px) scale(0)`, opacity: 0 }
+                      ],
+                      {
+                        duration: 1000 + Math.random() * 500,
+                        easing: "cubic-bezier(0,.9,.57,1)"
+                      }
+                    );
+                    
+                    animation.onfinish = () => {
+                      particle.remove();
+                    };
+                  }
+                  
+                  toast({
+                    title: "✨ Magic activated!",
+                    description: "You've discovered the pixie dust effect!",
+                  });
+                }}
+              >
+                <Sparkles size={24} />
+              </motion.button>
             </motion.div>
           </div>
           

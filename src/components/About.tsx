@@ -1,6 +1,6 @@
 
 import React, { useEffect, useRef, useState } from 'react';
-import { FileText, Coffee, Code, Music, Book, Heart } from 'lucide-react';
+import { FileText, Coffee, Code, GameController, Bot, Music, Book, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const FunFact = ({ icon, fact }: { icon: React.ReactNode, fact: string }) => {
@@ -24,7 +24,7 @@ const StatItem = ({ label, value }: { label: string, value: string }) => {
 const About = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [currentMood, setCurrentMood] = useState('😊');
-  const moods = ['😊', '🤔', '🔥', '🚀', '☕', '🌈', '🎮', '🎧'];
+  const moods = ['😊', '🤔', '🔥', '🚀', '☕', '🎮', '🐍', '🤖'];
   
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -63,7 +63,11 @@ const About = () => {
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
-                <div className="text-9xl p-8">👨‍🎓</div>
+                <img 
+                  src="/lovable-uploads/a0bccd48-79a2-4b65-8423-9b7191000966.png" 
+                  alt="Hunter's Profile"
+                  className="w-full h-full object-cover filter contrast-125 hover:filter-none transition-all duration-500"
+                />
               </motion.div>
             </div>
             
@@ -71,14 +75,14 @@ const About = () => {
             <div className="mt-8 p-4 rounded-xl bg-gradient-to-r from-primary/5 to-secondary/5 backdrop-blur-sm reveal opacity-0" style={{ transitionDelay: '0.3s' }}>
               <h3 className="text-center text-lg font-medium mb-4">Quick Stats</h3>
               <div className="grid grid-cols-3 gap-4">
-                <StatItem label="Age" value="20" />
-                <StatItem label="Projects" value="15+" />
-                <StatItem label="Fav Lang" value="JS" />
+                <StatItem label="Favorite Lang" value="Python" />
+                <StatItem label="Discord Bots" value="5+" />
+                <StatItem label="Coffee/Day" value="∞" />
               </div>
               
               {/* Mood Meter */}
               <div className="mt-6 text-center">
-                <p className="text-sm text-foreground/70 mb-2">Daily Mood</p>
+                <p className="text-sm text-foreground/70 mb-2">Current Mood</p>
                 <button 
                   onClick={handleMoodClick}
                   className="text-4xl bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full w-16 h-16 flex items-center justify-center hover:scale-110 transition-transform"
@@ -96,49 +100,54 @@ const About = () => {
             </span>
             
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-6 reveal opacity-0" style={{ transitionDelay: '0.4s' }}>
-              A passionate Student & <span className="text-gradient">Creator</span>
+              A passionate <span className="text-gradient">Coder</span> & <span className="text-gradient">Creator</span>
             </h2>
             
             <div className="text-foreground/80 space-y-4 mb-8">
               <p className="reveal opacity-0" style={{ transitionDelay: '0.5s' }}>
-                Hey there! I'm a student passionate about technology and creating cool stuff. I love to experiment with new technologies and build projects that solve real problems (or are just fun to make).
+                Hi, I'm Hunter! A passionate programmer and gamer with a love for creating unique solutions through Python. 
+                I'm always exploring new ways to improve my skills, whether it's through coding, building Discord bots, or experimenting with gaming tools.
               </p>
               <p className="reveal opacity-0" style={{ transitionDelay: '0.6s' }}>
-                Currently, I'm focusing on web development and design, but I'm always exploring new areas and expanding my skillset. When I'm not coding, you can find me listening to music, reading, or playing video games.
+                When I'm not writing code or developing bots, you'll find me gaming, listening to music, or coming up with new project ideas. 
+                I believe in creating tools that solve real problems while having fun in the process.
               </p>
             </div>
             
             {/* Fun Facts Section */}
             <div className="mb-8 reveal opacity-0" style={{ transitionDelay: '0.7s' }}>
-              <h3 className="text-xl font-display font-semibold mb-4">Fun Facts About Me</h3>
+              <h3 className="text-xl font-display font-semibold mb-4">Things I Enjoy</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <FunFact 
-                  icon={<Coffee size={18} />} 
-                  fact="I've consumed approximately 500 cups of coffee in the last year alone." 
-                />
-                <FunFact 
                   icon={<Code size={18} />} 
-                  fact="My first line of code was a 'Hello, World!' in Python at age 13." 
+                  fact="Building Discord bots that help gaming communities stay connected and organized." 
                 />
                 <FunFact 
-                  icon={<Music size={18} />} 
-                  fact="I listen to lo-fi beats while coding - it helps me focus!" 
+                  icon={<GameController size={18} />} 
+                  fact="Exploring virtual worlds and creating custom tools to enhance gaming experiences." 
                 />
                 <FunFact 
-                  icon={<Book size={18} />} 
-                  fact="I'm currently learning about machine learning and AI in my spare time." 
+                  icon={<Bot size={18} />} 
+                  fact="Automating tasks with Python scripts to solve everyday problems." 
+                />
+                <FunFact 
+                  icon={<Coffee size={18} />} 
+                  fact="Late night coding sessions fueled by coffee and creative inspiration." 
                 />
               </div>
             </div>
             
-            <a 
-              href="#" 
+            <motion.div 
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-medium transition-all hover:scale-105 active:scale-95 neon-glow reveal opacity-0"
               style={{ transitionDelay: '0.8s' }}
+              whileHover={{ 
+                boxShadow: "0 0 15px 5px rgba(0, 123, 255, 0.5)", 
+                transition: { duration: 0.2 } 
+              }}
             >
               <FileText size={16} />
-              Download Resume
-            </a>
+              <span>Download Resume</span>
+            </motion.div>
           </div>
         </div>
       </div>

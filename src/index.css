@@ -98,7 +98,7 @@
     @apply bg-primary transition-all duration-700 ease-out;
   }
 
-  /* New utility classes for fun elements */
+  /* Utility classes for fun elements */
   .neon-glow {
     @apply shadow-[0_0_8px_2px_theme(colors.primary/60)];
   }
@@ -131,9 +131,27 @@
     animation: floating 3s ease-in-out infinite;
   }
   
+  /* New animation for pixie dust */
+  @keyframes pixieDust {
+    0% { transform: translate(0, 0) scale(1); opacity: 1; }
+    100% { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; }
+  }
+
+  /* Enhanced floating animation with slight rotation */
   @keyframes floating {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(2deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+  }
+
+  /* Pulse glow animation */
+  @keyframes pulseGlow {
+    0% { box-shadow: 0 0 5px 0 rgba(0, 123, 255, 0.4); }
+    50% { box-shadow: 0 0 20px 5px rgba(0, 123, 255, 0.7); }
+    100% { box-shadow: 0 0 5px 0 rgba(0, 123, 255, 0.4); }
+  }
+
+  .pulse-glow {
+    animation: pulseGlow 2s ease-in-out infinite;
   }
 }

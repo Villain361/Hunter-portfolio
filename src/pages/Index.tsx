@@ -5,7 +5,6 @@ import Hero from '@/components/Hero';
 import About from '@/components/About';
 import Skills from '@/components/Skills';
 import Projects from '@/components/Projects';
-import FunFacts from '@/components/FunFacts';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import ScrollToTop from '@/components/ScrollToTop';
@@ -14,7 +13,7 @@ import { toast } from '@/components/ui/use-toast';
 const Index = () => {
   useEffect(() => {
     // Set document title
-    document.title = 'Student Portfolio';
+    document.title = 'Hunter\'s Portfolio';
     
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -37,7 +36,7 @@ const Index = () => {
     // Welcome toast
     setTimeout(() => {
       toast({
-        title: "👋 Welcome to my portfolio!",
+        title: "👋 Welcome to Hunter's digital playground!",
         description: "Feel free to explore and discover more about me and my projects!",
       });
     }, 1500);
@@ -76,7 +75,6 @@ const Index = () => {
         <About />
         <Skills />
         <Projects />
-        <FunFacts />
         <Contact />
       </main>
       <Footer />

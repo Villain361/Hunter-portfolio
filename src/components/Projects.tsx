@@ -1,7 +1,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Github, ExternalLink, Star } from 'lucide-react';
+import { Github, ExternalLink, Star, Bot, Code, GameController } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface Project {
@@ -13,46 +13,49 @@ interface Project {
   github?: string;
   live?: string;
   featured?: boolean;
+  icon?: React.ReactNode;
 }
 
 // Sample projects data
 const projects: Project[] = [
   {
     id: '1',
-    title: 'Awesome Chat App',
-    description: 'A real-time messaging platform with emoji reactions and file sharing capabilities.',
-    tags: ['React', 'Firebase', 'Tailwind CSS'],
-    image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b',
+    title: 'Discord Gaming Bot',
+    description: 'A custom Discord bot for gaming communities with role management, game stats tracking, and automated events.',
+    tags: ['Python', 'Discord.py', 'API Integration'],
+    image: 'https://images.unsplash.com/photo-1614680376573-df3480f0c6ff',
     github: '#',
     live: '#',
     featured: true,
+    icon: <Bot className="text-primary" />,
   },
   {
     id: '2',
-    title: 'Portfolio Website',
-    description: 'A responsive personal portfolio website showcasing projects and skills with modern design.',
-    tags: ['HTML', 'CSS', 'JavaScript', 'React'],
-    image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6',
+    title: 'Game Inventory Tracker',
+    description: 'Python application to track gaming inventories, item values, and trading opportunities.',
+    tags: ['Python', 'Tkinter', 'SQLite'],
+    image: 'https://images.unsplash.com/photo-1542751371-adc38448a05e',
     github: '#',
     live: '#',
+    icon: <GameController className="text-secondary" />,
   },
   {
     id: '3',
-    title: 'Task Tracker',
-    description: 'A productivity application for managing tasks with drag-and-drop functionality and collaboration.',
-    tags: ['React', 'Context API', 'CSS Modules'],
-    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475',
+    title: 'Web Scraper for Game Data',
+    description: 'Automated tool to collect and analyze game statistics and player data from various gaming websites.',
+    tags: ['Python', 'BeautifulSoup', 'Data Analysis'],
+    image: 'https://images.unsplash.com/photo-1607799279861-4dd421887fb3',
     github: '#',
-    live: '#',
+    icon: <Code className="text-accent" />,
   },
   {
     id: '4',
-    title: 'Weather Dashboard',
-    description: 'Real-time weather data visualization with location-based forecasts and interactive maps.',
-    tags: ['JavaScript', 'API Integration', 'Chart.js'],
-    image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d',
+    title: 'Automation Scripts Collection',
+    description: 'A collection of Python scripts to automate repetitive tasks for gamers and content creators.',
+    tags: ['Python', 'Automation', 'Utility'],
+    image: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb',
     github: '#',
-    live: '#',
+    icon: <Code className="text-primary" />,
   },
 ];
 
@@ -91,7 +94,10 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
       </div>
       
       <div className="p-6 bg-gradient-to-br from-background/95 to-background/95 backdrop-blur-sm relative z-10">
-        <h3 className="text-xl font-display font-semibold mb-2 group-hover:text-primary transition-colors">{project.title}</h3>
+        <div className="flex items-center gap-2 mb-2">
+          {project.icon}
+          <h3 className="text-xl font-display font-semibold group-hover:text-primary transition-colors">{project.title}</h3>
+        </div>
         
         <p className="text-foreground/70 mb-4 line-clamp-2">{project.description}</p>
         

@@ -1,28 +1,23 @@
 
 import React, { useEffect, useRef } from 'react';
-import { Radar } from 'recharts';
 import { motion } from 'framer-motion';
 
 interface Skill {
   name: string;
   level: number;
-  category: 'frontend' | 'backend' | 'design' | 'tools';
+  category: 'programming' | 'tools' | 'languages' | 'other';
   icon?: string;
 }
 
 const skills: Skill[] = [
-  { name: 'HTML/CSS', level: 90, category: 'frontend', icon: '🌐' },
-  { name: 'JavaScript', level: 85, category: 'frontend', icon: '📜' },
-  { name: 'React', level: 80, category: 'frontend', icon: '⚛️' },
-  { name: 'TypeScript', level: 75, category: 'frontend', icon: '📘' },
-  { name: 'Node.js', level: 70, category: 'backend', icon: '🟢' },
-  { name: 'Express', level: 65, category: 'backend', icon: '🚂' },
-  { name: 'MongoDB', level: 70, category: 'backend', icon: '🍃' },
-  { name: 'SQL', level: 60, category: 'backend', icon: '📊' },
-  { name: 'UI/UX Design', level: 80, category: 'design', icon: '🎨' },
-  { name: 'Figma', level: 85, category: 'design', icon: '✏️' },
-  { name: 'Git', level: 75, category: 'tools', icon: '📚' },
-  { name: 'Docker', level: 60, category: 'tools', icon: '🐋' },
+  { name: 'Python', level: 90, category: 'programming', icon: '🐍' },
+  { name: 'Discord Bot Dev', level: 85, category: 'programming', icon: '🤖' },
+  { name: 'VS Code', level: 80, category: 'tools', icon: '⚙️' },
+  { name: 'Git', level: 75, category: 'tools', icon: '📦' },
+  { name: 'API Integration', level: 70, category: 'programming', icon: '🔄' },
+  { name: 'Web Scraping', level: 65, category: 'programming', icon: '🕸️' },
+  { name: 'Game Modding', level: 80, category: 'other', icon: '🎮' },
+  { name: 'Problem Solving', level: 85, category: 'other', icon: '🧩' },
 ];
 
 const SkillCard = ({ name, level, icon, delay }: { name: string; level: number; icon?: string; delay: number }) => {
@@ -136,10 +131,9 @@ const Skills = () => {
     };
   }, []);
 
-  const frontendSkills = skills.filter(skill => skill.category === 'frontend');
-  const backendSkills = skills.filter(skill => skill.category === 'backend');
-  const designSkills = skills.filter(skill => skill.category === 'design');
-  const toolSkills = skills.filter(skill => skill.category === 'tools');
+  const programmingSkills = skills.filter(skill => skill.category === 'programming');
+  const toolsSkills = skills.filter(skill => skill.category === 'tools');
+  const otherSkills = skills.filter(skill => skill.category === 'other');
 
   return (
     <section id="skills" ref={sectionRef} className="section-padding px-6 md:px-12">
@@ -154,8 +148,55 @@ const Skills = () => {
           </h2>
           
           <p className="max-w-2xl mx-auto text-foreground/80 reveal opacity-0" style={{ transitionDelay: '0.4s' }}>
-            Here's what I've been learning and working with. My toolkit is constantly expanding as I love to experiment with new technologies!
+            Here's what I've been learning and working with. My toolkit is constantly expanding as I explore new technologies and techniques!
           </p>
+        </div>
+        
+        {/* Interactive Skill Visualization */}
+        <div className="mb-16 reveal opacity-0" style={{ transitionDelay: '0.5s' }}>
+          <div className="bg-gradient-to-br from-primary/5 to-secondary/5 rounded-2xl p-8 relative overflow-hidden">
+            <div className="absolute -top-20 -right-20 w-40 h-40 bg-primary/10 rounded-full blur-3xl"></div>
+            <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-secondary/10 rounded-full blur-3xl"></div>
+            
+            <div className="text-center mb-8">
+              <h3 className="text-xl font-display font-semibold">Skills Overview</h3>
+              <p className="text-sm text-foreground/70">Hover over each skill to see details</p>
+            </div>
+            
+            <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-4">
+              {skills.map((skill, index) => (
+                <motion.div 
+                  key={skill.name}
+                  className="flex flex-col items-center justify-center p-4 rounded-xl bg-background/30 backdrop-blur-sm hover:bg-primary/10 transition-colors"
+                  whileHover={{ 
+                    y: -10,
+                    boxShadow: "0 10px 25px -5px rgba(0, 123, 255, 0.2)",
+                    scale: 1.05
+                  }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ 
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 15,
+                    delay: 0.05 * index 
+                  }}
+                >
+                  <span className="text-3xl mb-2">{skill.icon}</span>
+                  <span className="font-medium text-sm text-center">{skill.name}</span>
+                  <div className="w-full h-1 bg-muted/50 rounded-full mt-2 overflow-hidden">
+                    <motion.div 
+                      className="h-full bg-gradient-to-r from-primary to-secondary"
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${skill.level}%` }}
+                      transition={{ duration: 1, delay: 0.1 * index }}
+                      viewport={{ once: true }}
+                    ></motion.div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
         
         {/* Skill Rings for Mobile */}
@@ -179,10 +220,10 @@ const Skills = () => {
             transition={{ type: "spring", stiffness: 300, damping: 10 }}
           >
             <h3 className="text-xl font-display font-semibold mb-6 flex items-center">
-              <span className="text-xl mr-2">⚡</span>
-              Frontend Skills
+              <span className="text-xl mr-2">🐍</span>
+              Programming Skills
             </h3>
-            {frontendSkills.map((skill, index) => (
+            {programmingSkills.map((skill, index) => (
               <SkillCard key={skill.name} name={skill.name} level={skill.level} icon={skill.icon} delay={index * 200} />
             ))}
           </motion.div>
@@ -194,42 +235,29 @@ const Skills = () => {
             transition={{ type: "spring", stiffness: 300, damping: 10 }}
           >
             <h3 className="text-xl font-display font-semibold mb-6 flex items-center">
-              <span className="text-xl mr-2">🛠️</span>
-              Backend Skills
+              <span className="text-xl mr-2">⚙️</span>
+              Tools & Technologies
             </h3>
-            {backendSkills.map((skill, index) => (
+            {toolsSkills.map((skill, index) => (
               <SkillCard key={skill.name} name={skill.name} level={skill.level} icon={skill.icon} delay={index * 200} />
             ))}
           </motion.div>
           
           <motion.div 
-            className="p-6 rounded-2xl cyberpunk-card reveal opacity-0" 
+            className="p-6 rounded-2xl cyberpunk-card reveal opacity-0 md:col-span-2" 
             style={{ transitionDelay: '0.7s' }}
             whileHover={{ y: -5 }}
             transition={{ type: "spring", stiffness: 300, damping: 10 }}
           >
             <h3 className="text-xl font-display font-semibold mb-6 flex items-center">
-              <span className="text-xl mr-2">🎨</span>
-              Design Skills
+              <span className="text-xl mr-2">🎮</span>
+              Other Skills
             </h3>
-            {designSkills.map((skill, index) => (
-              <SkillCard key={skill.name} name={skill.name} level={skill.level} icon={skill.icon} delay={index * 200} />
-            ))}
-          </motion.div>
-          
-          <motion.div 
-            className="p-6 rounded-2xl cyberpunk-card reveal opacity-0" 
-            style={{ transitionDelay: '0.8s' }}
-            whileHover={{ y: -5 }}
-            transition={{ type: "spring", stiffness: 300, damping: 10 }}
-          >
-            <h3 className="text-xl font-display font-semibold mb-6 flex items-center">
-              <span className="text-xl mr-2">🧰</span>
-              Tools & Technologies
-            </h3>
-            {toolSkills.map((skill, index) => (
-              <SkillCard key={skill.name} name={skill.name} level={skill.level} icon={skill.icon} delay={index * 200} />
-            ))}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {otherSkills.map((skill, index) => (
+                <SkillCard key={skill.name} name={skill.name} level={skill.level} icon={skill.icon} delay={index * 200} />
+              ))}
+            </div>
           </motion.div>
         </div>
       </div>
