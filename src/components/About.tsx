@@ -2,7 +2,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { FileText, Coffee, Code, Gamepad, Bot, Music, Book, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
-import DiscordCard from './DiscordCard';
 
 const FunFact = ({ icon, fact }: { icon: React.ReactNode, fact: string }) => {
   return (
@@ -133,11 +132,6 @@ const About = () => {
                   {currentMood}
                 </button>
               </div>
-            </div>
-            
-            {/* Added Discord Card */}
-            <div className="mt-8 reveal opacity-0" style={{ transitionDelay: '0.4s' }}>
-              <DiscordCard />
             </div>
           </div>
           
