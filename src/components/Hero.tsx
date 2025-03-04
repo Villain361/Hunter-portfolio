@@ -1,9 +1,28 @@
 
-import React, { useEffect, useRef } from 'react';
-import { ArrowRight } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { ArrowRight, Sparkles, Smile, Code, Coffee } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+const FloatingElement = ({ children, className, delay = 0 }: { children: React.ReactNode, className?: string, delay?: number }) => {
+  return (
+    <motion.div
+      className={`absolute ${className}`}
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5, delay }}
+      style={{ 
+        animation: `floating ${3 + Math.random() * 2}s ease-in-out infinite`, 
+        animationDelay: `${delay}s` 
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+};
 
 const Hero = () => {
   const backgroundRef = useRef<HTMLDivElement>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   
   useEffect(() => {
     if (!backgroundRef.current) return;
@@ -17,7 +36,8 @@ const Hero = () => {
       const moveX = (clientX / innerWidth) - 0.5;
       const moveY = (clientY / innerHeight) - 0.5;
       
-      backgroundRef.current.style.transform = `translate(${moveX * 10}px, ${moveY * 10}px)`;
+      backgroundRef.current.style.transform = `translate(${moveX * 20}px, ${moveY * 20}px)`;
+      setMousePosition({ x: moveX, y: moveY });
     };
     
     window.addEventListener('mousemove', handleMouseMove);
@@ -28,54 +48,101 @@ const Hero = () => {
   }, []);
 
   return (
-    <section id="home" className="min-h-screen flex flex-col justify-center pt-20 pb-16 px-6 md:px-12 overflow-hidden relative">
-      <div className="max-w-7xl mx-auto w-full flex flex-col md:flex-row items-center">
-        <div className="w-full md:w-7/12 pt-12 md:pt-0 z-10">
-          <span className="inline-block mb-3 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            Welcome to my portfolio
-          </span>
+    <section id="home" className="min-h-screen flex flex-col justify-center pt-20 pb-16 px-6 md:px-12 overflow-hidden relative fun-cursor">
+      {/* Floating elements */}
+      <FloatingElement className="top-[15%] left-[10%] text-primary" delay={0.2}>
+        <Code size={24} className="neon-text" />
+      </FloatingElement>
+      <FloatingElement className="top-[25%] right-[15%] text-secondary" delay={0.5}>
+        <Sparkles size={20} className="text-secondary" />
+      </FloatingElement>
+      <FloatingElement className="bottom-[30%] left-[20%] text-accent" delay={0.8}>
+        <Coffee size={18} />
+      </FloatingElement>
+      <FloatingElement className="bottom-[20%] right-[25%] text-primary" delay={1.1}>
+        <Smile size={22} />
+      </FloatingElement>
+      
+      <div className="max-w-7xl mx-auto w-full flex flex-col md:flex-row items-center relative z-10">
+        <motion.div 
+          className="w-full md:w-7/12 pt-12 md:pt-0 z-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
+          <motion.span 
+            className="inline-block mb-3 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+          >
+            Hello there! 👋
+          </motion.span>
           
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-tight mb-6 animate-slide-up" style={{ animationDelay: '0.4s' }}>
-            I <span className="text-gradient">design</span> and <span className="text-gradient">develop</span> exceptional digital experiences
-          </h1>
+          <motion.h1 
+            className="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-tight mb-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+          >
+            I'm <span className="text-gradient">Your Name</span>, a <br className="hidden md:block" />
+            <span className="text-gradient">Student</span> & <span className="text-gradient">Creator</span>
+          </motion.h1>
           
-          <p className="text-lg text-foreground/80 max-w-lg mb-8 animate-slide-up" style={{ animationDelay: '0.6s' }}>
-            A passionate web developer and designer focused on creating beautiful, functional, and user-centered digital experiences.
-          </p>
+          <motion.p 
+            className="text-lg text-foreground/80 max-w-lg mb-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1 }}
+          >
+            A passionate student focused on creating cool projects and learning new technologies. Welcome to my digital playground!
+          </motion.p>
           
-          <div className="flex flex-wrap gap-4 animate-slide-up" style={{ animationDelay: '0.8s' }}>
+          <motion.div 
+            className="flex flex-wrap gap-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.2 }}
+          >
             <a 
               href="#projects" 
-              className="flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-medium transition-all hover:scale-105 active:scale-95"
+              className="flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-medium transition-all hover:scale-105 active:scale-95 neon-glow"
             >
-              View Projects
+              Explore My World
               <ArrowRight size={16} />
             </a>
             
             <a 
               href="#contact" 
-              className="px-6 py-3 rounded-lg border border-border bg-transparent text-foreground font-medium transition-all hover:bg-secondary"
+              className="px-6 py-3 rounded-lg border border-border bg-transparent text-foreground font-medium transition-all hover:bg-secondary hover:text-white hover:border-transparent hover:scale-105"
             >
-              Contact Me
+              Say Hi!
             </a>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
         
-        <div className="w-full md:w-5/12 mt-16 md:mt-0 animate-fade-in" style={{ animationDelay: '1s' }}>
+        <motion.div 
+          className="w-full md:w-5/12 mt-16 md:mt-0"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 1.4 }}
+        >
           <div className="relative">
-            <div className="absolute inset-0 -left-12 -top-12 bg-secondary rounded-3xl animate-spin-slow opacity-30"></div>
-            <div className="absolute inset-0 -right-12 -bottom-12 bg-primary/20 rounded-3xl animate-spin-slow opacity-30" style={{ animationDirection: 'reverse' }}></div>
-            <div className="relative z-10 aspect-square rounded-3xl overflow-hidden bg-muted flex items-center justify-center">
-              <div className="text-4xl">👋</div>
+            <div className="absolute inset-0 -left-12 -top-12 bg-primary/20 rounded-3xl animate-spin-slow opacity-30"></div>
+            <div className="absolute inset-0 -right-12 -bottom-12 bg-secondary/20 rounded-3xl animate-spin-slow opacity-30" style={{ animationDirection: 'reverse' }}></div>
+            <div className="relative z-10 aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-primary/5 to-secondary/5 backdrop-blur-sm flex items-center justify-center neon-border">
+              <div className="text-6xl">👨‍💻</div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
       
       <div 
         ref={backgroundRef}
         className="absolute inset-0 pointer-events-none z-0 transition-transform duration-200 ease-out"
-        style={{ backgroundImage: 'radial-gradient(circle at 30% 80%, rgba(64, 64, 64, 0.04) 0%, rgba(64, 64, 64, 0.04) 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%)' }}
+        style={{ 
+          backgroundImage: 'radial-gradient(circle at 30% 30%, rgba(124, 58, 237, 0.07) 0%, rgba(124, 58, 237, 0) 70%), radial-gradient(circle at 70% 70%, rgba(3, 105, 255, 0.07) 0%, rgba(3, 105, 255, 0) 70%)' 
+        }}
       ></div>
     </section>
   );

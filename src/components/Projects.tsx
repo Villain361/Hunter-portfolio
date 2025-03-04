@@ -1,7 +1,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Github, ExternalLink } from 'lucide-react';
+import { Github, ExternalLink, Star } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface Project {
@@ -12,17 +12,20 @@ interface Project {
   image: string;
   github?: string;
   live?: string;
+  featured?: boolean;
 }
 
+// Sample projects data
 const projects: Project[] = [
   {
     id: '1',
-    title: 'E-Commerce Platform',
-    description: 'A full-featured e-commerce solution with product management, shopping cart, and secure checkout functionality.',
-    tags: ['React', 'Node.js', 'MongoDB', 'Express'],
+    title: 'Awesome Chat App',
+    description: 'A real-time messaging platform with emoji reactions and file sharing capabilities.',
+    tags: ['React', 'Firebase', 'Tailwind CSS'],
     image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b',
     github: '#',
     live: '#',
+    featured: true,
   },
   {
     id: '2',
@@ -35,9 +38,9 @@ const projects: Project[] = [
   },
   {
     id: '3',
-    title: 'Task Management App',
-    description: 'A productivity application for managing tasks with drag-and-drop functionality and collaborative features.',
-    tags: ['React', 'Firebase', 'Tailwind CSS'],
+    title: 'Task Tracker',
+    description: 'A productivity application for managing tasks with drag-and-drop functionality and collaboration.',
+    tags: ['React', 'Context API', 'CSS Modules'],
     image: 'https://images.unsplash.com/photo-1518770660439-4636190af475',
     github: '#',
     live: '#',
@@ -45,24 +48,31 @@ const projects: Project[] = [
   {
     id: '4',
     title: 'Weather Dashboard',
-    description: 'Real-time weather information app featuring forecasts, location-based data, and interactive maps.',
-    tags: ['JavaScript', 'API Integration', 'CSS'],
+    description: 'Real-time weather data visualization with location-based forecasts and interactive maps.',
+    tags: ['JavaScript', 'API Integration', 'Chart.js'],
     image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d',
     github: '#',
     live: '#',
   },
 ];
 
-const ProjectCard = ({ project }: { project: Project }) => {
+const ProjectCard = ({ project, index }: { project: Project; index: number }) => {
   const [isHovered, setIsHovered] = useState(false);
   
   return (
-    <div 
-      className="group relative rounded-2xl overflow-hidden bg-secondary/20 transition-all duration-300 hover:shadow-lg"
+    <motion.div 
+      className={cn(
+        "group relative rounded-2xl overflow-hidden transition-all duration-300",
+        project.featured ? "col-span-1 md:col-span-2" : "col-span-1"
+      )}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.1 * index }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      whileHover={{ y: -10 }}
     >
-      <div className="aspect-[16/10] overflow-hidden">
+      <div className="relative aspect-[16/10] overflow-hidden">
         <img 
           src={project.image} 
           alt={project.title} 
@@ -71,12 +81,19 @@ const ProjectCard = ({ project }: { project: Project }) => {
             isHovered ? "scale-110 blur-sm" : "scale-100"
           )}
         />
+        
+        {project.featured && (
+          <div className="absolute top-4 right-4 bg-primary/90 text-white px-3 py-1 rounded-full flex items-center text-xs">
+            <Star size={12} className="mr-1" />
+            Featured
+          </div>
+        )}
       </div>
       
-      <div className="p-6">
-        <h3 className="text-xl font-display font-semibold mb-2">{project.title}</h3>
+      <div className="p-6 bg-gradient-to-br from-background/95 to-background/95 backdrop-blur-sm relative z-10">
+        <h3 className="text-xl font-display font-semibold mb-2 group-hover:text-primary transition-colors">{project.title}</h3>
         
-        <p className="text-foreground/70 mb-4">{project.description}</p>
+        <p className="text-foreground/70 mb-4 line-clamp-2">{project.description}</p>
         
         <div className="flex flex-wrap gap-2 mb-4">
           {project.tags.map((tag) => (
@@ -116,7 +133,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
       
       <div 
         className={cn(
-          "absolute inset-0 bg-black/80 flex items-center justify-center p-6 transition-all duration-300",
+          "absolute inset-0 bg-gradient-to-br from-primary/80 to-secondary/80 flex items-center justify-center p-6 transition-all duration-300",
           isHovered ? "opacity-100" : "opacity-0 pointer-events-none"
         )}
       >
@@ -126,35 +143,40 @@ const ProjectCard = ({ project }: { project: Project }) => {
           
           <div className="flex justify-center gap-4">
             {project.github && (
-              <a 
+              <motion.a 
                 href={project.github} 
                 className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 text-white hover:bg-white/20 transition-colors"
                 aria-label={`GitHub repository for ${project.title}`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <Github size={16} />
                 <span>Code</span>
-              </a>
+              </motion.a>
             )}
             
             {project.live && (
-              <a 
+              <motion.a 
                 href={project.live} 
-                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors"
+                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white text-primary hover:bg-white/90 transition-colors"
                 aria-label={`Live demo for ${project.title}`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <ExternalLink size={16} />
                 <span>Live Demo</span>
-              </a>
+              </motion.a>
             )}
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
 const Projects = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const [filter, setFilter] = useState<string>('all');
   
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -176,26 +198,69 @@ const Projects = () => {
     };
   }, []);
 
+  // Get unique tags from all projects
+  const allTags = Array.from(new Set(projects.flatMap(project => project.tags)));
+  
+  // Filter projects based on selected filter
+  const filteredProjects = filter === 'all' 
+    ? projects 
+    : projects.filter(project => project.tags.includes(filter));
+
   return (
-    <section id="projects" ref={sectionRef} className="section-padding px-6 md:px-12 bg-secondary/30">
+    <section id="projects" ref={sectionRef} className="section-padding px-6 md:px-12 bg-gradient-to-br from-primary/5 to-secondary/5">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <span className="inline-block mb-3 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium reveal opacity-0" style={{ transitionDelay: '0.2s' }}>
-            My Work
+            My Portfolio
           </span>
           
           <h2 className="text-3xl md:text-4xl font-display font-bold mb-4 reveal opacity-0" style={{ transitionDelay: '0.3s' }}>
-            Featured Projects
+            Cool Stuff I Built
           </h2>
           
           <p className="max-w-2xl mx-auto text-foreground/80 reveal opacity-0" style={{ transitionDelay: '0.4s' }}>
-            Explore a selection of my recent work, highlighting my skills in development and design. Each project represents a unique challenge and solution.
+            Check out some of my recent projects! Each one represents a unique challenge and learning opportunity.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 reveal opacity-0" style={{ transitionDelay: '0.5s' }}>
-          {projects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+        {/* Filter buttons */}
+        <div className="flex flex-wrap justify-center gap-2 mb-12 reveal opacity-0" style={{ transitionDelay: '0.5s' }}>
+          <motion.button
+            className={cn(
+              "px-4 py-2 rounded-full text-sm font-medium transition-all",
+              filter === 'all' 
+                ? "bg-primary text-white" 
+                : "bg-primary/10 text-foreground hover:bg-primary/20"
+            )}
+            onClick={() => setFilter('all')}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            All Projects
+          </motion.button>
+          
+          {allTags.map(tag => (
+            <motion.button
+              key={tag}
+              className={cn(
+                "px-4 py-2 rounded-full text-sm font-medium transition-all",
+                filter === tag 
+                  ? "bg-primary text-white" 
+                  : "bg-primary/10 text-foreground hover:bg-primary/20"
+              )}
+              onClick={() => setFilter(tag)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {tag}
+            </motion.button>
+          ))}
+        </div>
+        
+        {/* Projects grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal opacity-0" style={{ transitionDelay: '0.5s' }}>
+          {filteredProjects.map((project, index) => (
+            <ProjectCard key={project.id} project={project} index={index} />
           ))}
         </div>
       </div>

@@ -1,20 +1,33 @@
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter, Instagram, ExternalLink } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { toast } from '@/components/ui/use-toast';
 
 interface FormState {
   name: string;
   email: string;
-  subject: string;
   message: string;
 }
 
 const initialFormState: FormState = {
   name: '',
   email: '',
-  subject: '',
   message: '',
+};
+
+const SocialButton = ({ href, icon, label }: { href: string; icon: React.ReactNode; label: string }) => {
+  return (
+    <motion.a 
+      href={href}
+      className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all"
+      whileHover={{ scale: 1.1, rotate: 5 }}
+      whileTap={{ scale: 0.95 }}
+      aria-label={label}
+    >
+      {icon}
+    </motion.a>
+  );
 };
 
 const Contact = () => {
@@ -54,8 +67,8 @@ const Contact = () => {
     // Simulate form submission
     setTimeout(() => {
       toast({
-        title: "Message sent!",
-        description: "Thank you for your message. I'll get back to you soon.",
+        title: "Message received! 🚀",
+        description: "Thanks for reaching out. I'll respond as soon as I can!",
       });
       setFormState(initialFormState);
       setIsSubmitting(false);
@@ -63,170 +76,166 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" ref={sectionRef} className="section-padding px-6 md:px-12 bg-secondary/30">
+    <section id="contact" ref={sectionRef} className="section-padding px-6 md:px-12 bg-gradient-to-b from-secondary/5 to-primary/5">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <span className="inline-block mb-3 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium reveal opacity-0" style={{ transitionDelay: '0.2s' }}>
-            Contact
+            Get In Touch
           </span>
           
           <h2 className="text-3xl md:text-4xl font-display font-bold mb-4 reveal opacity-0" style={{ transitionDelay: '0.3s' }}>
-            Get In Touch
+            Let's <span className="text-gradient">Connect</span>
           </h2>
           
           <p className="max-w-2xl mx-auto text-foreground/80 reveal opacity-0" style={{ transitionDelay: '0.4s' }}>
-            Have a project in mind or want to discuss potential opportunities? Feel free to reach out. I'm always open to new ideas and collaborations.
+            Have a question, project idea, or just want to say hi? Feel free to reach out!
           </p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* Contact Information */}
           <div className="reveal opacity-0" style={{ transitionDelay: '0.5s' }}>
-            <h3 className="text-xl font-display font-semibold mb-6">Contact Information</h3>
-            
-            <div className="space-y-6">
-              <div className="flex items-start">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <Mail className="text-primary" size={20} />
-                </div>
-                <div className="ml-4">
-                  <h4 className="text-sm font-medium text-foreground/70 mb-1">Email</h4>
-                  <a href="mailto:your.email@example.com" className="text-lg hover:text-primary transition-colors">
-                    your.email@example.com
-                  </a>
-                </div>
+            <motion.div 
+              className="p-8 rounded-2xl bg-gradient-to-br from-primary/5 to-secondary/5 border border-primary/10"
+              whileHover={{ y: -5 }}
+              transition={{ type: "spring", stiffness: 300, damping: 10 }}
+            >
+              <h3 className="text-xl font-display font-semibold mb-6">Contact Info</h3>
+              
+              <div className="space-y-6">
+                <motion.div 
+                  className="flex items-start"
+                  whileHover={{ x: 5 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 10 }}
+                >
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 text-primary">
+                    <Mail size={20} />
+                  </div>
+                  <div className="ml-4">
+                    <h4 className="text-sm font-medium text-foreground/70 mb-1">Email</h4>
+                    <a href="mailto:your.email@example.com" className="text-lg hover:text-primary transition-colors">
+                      your.email@example.com
+                    </a>
+                  </div>
+                </motion.div>
+                
+                <motion.div 
+                  className="flex items-start"
+                  whileHover={{ x: 5 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 10 }}
+                >
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 text-primary">
+                    <MapPin size={20} />
+                  </div>
+                  <div className="ml-4">
+                    <h4 className="text-sm font-medium text-foreground/70 mb-1">Location</h4>
+                    <p className="text-lg">
+                      Your City, Your Country
+                    </p>
+                  </div>
+                </motion.div>
               </div>
               
-              <div className="flex items-start">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <Phone className="text-primary" size={20} />
-                </div>
-                <div className="ml-4">
-                  <h4 className="text-sm font-medium text-foreground/70 mb-1">Phone</h4>
-                  <a href="tel:+1234567890" className="text-lg hover:text-primary transition-colors">
-                    +1 (234) 567-890
-                  </a>
-                </div>
-              </div>
-              
-              <div className="flex items-start">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <MapPin className="text-primary" size={20} />
-                </div>
-                <div className="ml-4">
-                  <h4 className="text-sm font-medium text-foreground/70 mb-1">Location</h4>
-                  <p className="text-lg">
-                    Your City, Your Country
-                  </p>
+              <div className="mt-12">
+                <h3 className="text-xl font-display font-semibold mb-6">Let's Connect</h3>
+                
+                <div className="flex space-x-4">
+                  <SocialButton href="#" icon={<Github size={20} />} label="GitHub" />
+                  <SocialButton href="#" icon={<Linkedin size={20} />} label="LinkedIn" />
+                  <SocialButton href="#" icon={<Twitter size={20} />} label="Twitter" />
+                  <SocialButton href="#" icon={<Instagram size={20} />} label="Instagram" />
                 </div>
               </div>
-            </div>
-            
-            <div className="mt-12">
-              <h3 className="text-xl font-display font-semibold mb-6">Follow Me</h3>
-              
-              <div className="flex space-x-4">
-                <a href="#" className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all" aria-label="Twitter">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
-                </a>
-                <a href="#" className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all" aria-label="LinkedIn">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-                </a>
-                <a href="#" className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all" aria-label="GitHub">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                </a>
-                <a href="#" className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all" aria-label="Instagram">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                </a>
-              </div>
-            </div>
+            </motion.div>
           </div>
           
           {/* Contact Form */}
           <div className="reveal opacity-0" style={{ transitionDelay: '0.6s' }}>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-2">
-                  Your Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formState.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 rounded-lg border border-border bg-secondary/30 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-                  placeholder="John Doe"
-                />
+            <motion.div 
+              className="relative"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              {/* Chat Bubble Design */}
+              <div className="absolute -left-6 top-10 w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary text-white flex items-center justify-center">
+                <Mail size={20} />
               </div>
+              <div className="absolute -left-2 top-16 w-4 h-4 rounded-full bg-gradient-to-br from-primary to-secondary"></div>
               
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-2">
-                  Your Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formState.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 rounded-lg border border-border bg-secondary/30 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-                  placeholder="john@example.com"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="subject" className="block text-sm font-medium mb-2">
-                  Subject
-                </label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  value={formState.subject}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 rounded-lg border border-border bg-secondary/30 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-                  placeholder="Project Inquiry"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium mb-2">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formState.message}
-                  onChange={handleChange}
-                  required
-                  rows={5}
-                  className="w-full px-4 py-3 rounded-lg border border-border bg-secondary/30 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none"
-                  placeholder="Your message here..."
-                ></textarea>
-              </div>
-              
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-medium transition-all hover:bg-primary/90 disabled:opacity-70"
+              <form 
+                onSubmit={handleSubmit} 
+                className="ml-4 p-6 rounded-2xl rounded-tl-none bg-gradient-to-br from-primary/5 to-secondary/5 border border-primary/10 space-y-6"
               >
-                {isSubmitting ? (
-                  <>
-                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                    <span>Sending...</span>
-                  </>
-                ) : (
-                  <>
-                    <Send size={16} />
-                    <span>Send Message</span>
-                  </>
-                )}
-              </button>
-            </form>
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium mb-2">
+                    Your Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formState.name}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 rounded-lg border border-border bg-background/50 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                    placeholder="John Doe"
+                  />
+                </div>
+                
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium mb-2">
+                    Your Email
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formState.email}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 rounded-lg border border-border bg-background/50 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                    placeholder="john@example.com"
+                  />
+                </div>
+                
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium mb-2">
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formState.message}
+                    onChange={handleChange}
+                    required
+                    rows={5}
+                    className="w-full px-4 py-3 rounded-lg border border-border bg-background/50 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none"
+                    placeholder="Hi there! I'd like to talk about..."
+                  ></textarea>
+                </div>
+                
+                <motion.button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-primary to-secondary text-white font-medium transition-all disabled:opacity-70"
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      <span>Sending...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Send size={16} />
+                      <span>Send Message</span>
+                    </>
+                  )}
+                </motion.button>
+              </form>
+            </motion.div>
           </div>
         </div>
       </div>

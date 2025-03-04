@@ -11,20 +11,42 @@
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
+    --primary: 210 100% 50%; /* Electric Blue #007BFF */
     --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
+    --secondary: 290 76% 42%; /* Neon Purple #9C27B0 */
+    --secondary-foreground: 0 0% 98%;
     --muted: 240 4.8% 95.9%;
     --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
+    --accent: 270 70% 80%; /* Soft purple for accent */
     --accent-foreground: 240 5.9% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
-    --ring: 240 10% 3.9%;
-    --radius: 0.5rem;
+    --ring: 210 100% 50%;
+    --radius: 1rem;
+  }
+
+  .dark {
+    --background: 240 10% 4%; /* Midnight black for dark mode */
+    --foreground: 0 0% 98%;
+    --card: 240 10% 8%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 8%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 210 100% 50%; /* Keep electric blue */
+    --primary-foreground: 0 0% 98%;
+    --secondary: 290 76% 42%; /* Keep neon purple */
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 12 100% 65%; /* Neon pink accent for dark mode */
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 210 100% 50%;
   }
 }
 
@@ -45,7 +67,7 @@
 
 @layer utilities {
   .glass {
-    @apply bg-white/10 backdrop-blur-lg border border-white/20 shadow-lg;
+    @apply bg-white/10 backdrop-blur-lg border border-white/20;
   }
   
   .text-balance {
@@ -61,7 +83,7 @@
   }
   
   .text-gradient {
-    @apply bg-gradient-to-r from-primary to-accent-foreground bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent;
   }
   
   .fade-mask {
@@ -74,5 +96,44 @@
   
   .progress-bar::-webkit-progress-value {
     @apply bg-primary transition-all duration-700 ease-out;
+  }
+
+  /* New utility classes for fun elements */
+  .neon-glow {
+    @apply shadow-[0_0_8px_2px_theme(colors.primary/60)];
+  }
+  
+  .neon-text {
+    @apply text-primary drop-shadow-[0_0_8px_theme(colors.primary/70)];
+  }
+  
+  .neon-border {
+    @apply border border-primary shadow-[0_0_8px_theme(colors.primary/50)];
+  }
+  
+  .cyberpunk-card {
+    @apply bg-gradient-to-br from-primary/10 to-secondary/10 backdrop-blur-md border-l-4 border-primary;
+  }
+  
+  .pastel-card {
+    @apply bg-gradient-to-br from-blue-100 to-purple-100 border border-blue-200;
+  }
+  
+  .fun-cursor {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23007BFF' stroke-width='2'><circle cx='12' cy='12' r='10'/></svg>") 12 12, auto;
+  }
+  
+  .hover-scale {
+    @apply transition-transform duration-300 hover:scale-105;
+  }
+  
+  .floating {
+    animation: floating 3s ease-in-out infinite;
+  }
+  
+  @keyframes floating {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
   }
 }
