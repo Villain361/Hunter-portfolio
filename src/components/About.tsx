@@ -1,6 +1,5 @@
-
 import React, { useEffect, useRef, useState } from 'react';
-import { FileText, Coffee, Code, GameController, Bot, Music, Book, Heart } from 'lucide-react';
+import { FileText, Coffee, Code, Gamepad, Bot, Music, Book, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const FunFact = ({ icon, fact }: { icon: React.ReactNode, fact: string }) => {
@@ -123,7 +122,7 @@ const About = () => {
                   fact="Building Discord bots that help gaming communities stay connected and organized." 
                 />
                 <FunFact 
-                  icon={<GameController size={18} />} 
+                  icon={<Gamepad size={18} />} 
                   fact="Exploring virtual worlds and creating custom tools to enhance gaming experiences." 
                 />
                 <FunFact 

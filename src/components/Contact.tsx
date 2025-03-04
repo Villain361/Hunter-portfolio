@@ -1,6 +1,6 @@
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Mail, MapPin, Send, Github, Instagram, ExternalLink, Bot } from 'lucide-react';
+import { Mail, MapPin, Send, Github, Instagram, ExternalLink, Bot, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { toast } from '@/components/ui/use-toast';
 

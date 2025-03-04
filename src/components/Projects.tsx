@@ -1,7 +1,6 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Github, ExternalLink, Star, Bot, Code, GameController } from 'lucide-react';
+import { Github, ExternalLink, Star, Bot, Code, Gamepad } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface Project {
@@ -37,7 +36,7 @@ const projects: Project[] = [
     image: 'https://images.unsplash.com/photo-1542751371-adc38448a05e',
     github: '#',
     live: '#',
-    icon: <GameController className="text-secondary" />,
+    icon: <Gamepad className="text-secondary" />,
   },
   {
     id: '3',

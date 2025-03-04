@@ -1,6 +1,5 @@
-
 import React, { useEffect, useRef, useState } from 'react';
-import { ArrowRight, Sparkles, Coffee, Code, GameController, Bot } from 'lucide-react';
+import { ArrowRight, Sparkles, Coffee, Code, Gamepad, Bot } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const FloatingElement = ({ children, className, delay = 0 }: { children: React.ReactNode, className?: string, delay?: number }) => {
@@ -22,7 +21,7 @@ const FloatingElement = ({ children, className, delay = 0 }: { children: React.R
 
 const statusOptions = [
   { status: 'Coding', icon: <Code size={14} className="mr-1" /> },
-  { status: 'Gaming', icon: <GameController size={14} className="mr-1" /> },
+  { status: 'Gaming', icon: <Gamepad size={14} className="mr-1" /> },
   { status: 'Making Coffee', icon: <Coffee size={14} className="mr-1" /> },
   { status: 'Building Bots', icon: <Bot size={14} className="mr-1" /> },
 ];
@@ -82,7 +81,7 @@ const Hero = () => {
         <Coffee size={18} />
       </FloatingElement>
       <FloatingElement className="bottom-[20%] right-[25%] text-primary" delay={1.1}>
-        <GameController size={22} />
+        <Gamepad size={22} />
       </FloatingElement>
       <FloatingElement className="top-[40%] left-[30%] text-secondary" delay={0.7}>
         <Bot size={20} />
