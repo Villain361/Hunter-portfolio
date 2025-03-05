@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
@@ -15,7 +16,7 @@ const Index = () => {
     // Set document title
     document.title = 'Hunter\'s Portfolio';
     
-    // Smooth scroll for anchor links
+    // Improved smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         e.preventDefault();
@@ -26,10 +27,25 @@ const Index = () => {
         const targetElement = document.querySelector(href);
         if (!targetElement) return;
         
-        window.scrollTo({
-          top: targetElement.getBoundingClientRect().top + window.scrollY - 80,
-          behavior: 'smooth'
+        // Add smooth scroll behavior to html and body elements
+        document.documentElement.style.scrollBehavior = 'smooth';
+        document.body.style.scrollBehavior = 'smooth';
+        
+        // Scroll with offset for header
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
         });
+        
+        // Adjust scroll position for fixed header
+        setTimeout(() => {
+          const headerOffset = 80;
+          const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo({
+            top: targetPosition - headerOffset,
+            behavior: 'smooth'
+          });
+        }, 0);
       });
     });
     
@@ -136,9 +152,16 @@ const Index = () => {
     `;
     document.head.appendChild(style);
     
+    // Add smooth scroll behavior to the entire page
+    document.documentElement.style.scrollBehavior = 'smooth';
+    document.body.style.scrollBehavior = 'smooth';
+    
     return () => {
       window.removeEventListener('keydown', checkKonami);
       document.head.removeChild(style);
+      // Remove scroll behavior when component unmounts
+      document.documentElement.style.scrollBehavior = '';
+      document.body.style.scrollBehavior = '';
     };
   }, []);
 

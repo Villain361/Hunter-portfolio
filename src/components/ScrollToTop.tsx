@@ -21,10 +21,19 @@ const ScrollToTop = () => {
   }, []);
 
   const scrollToTop = () => {
+    // Set smooth scroll behavior
+    document.documentElement.style.scrollBehavior = 'smooth';
+    document.body.style.scrollBehavior = 'smooth';
+    
+    // Use both methods for better browser compatibility
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
     });
+    
+    // Alternative method for older browsers
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   };
 
   return (
