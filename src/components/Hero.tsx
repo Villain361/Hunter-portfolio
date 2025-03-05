@@ -126,8 +126,8 @@ const Hero = () => {
             height: size, 
             x: pixieDustPosition.x, 
             y: pixieDustPosition.y,
-            '--x': `${x}px`,
-            '--y': `${y}px`,
+            // Fix: CSS custom properties need to be defined properly for TypeScript
+            // Use CSS transform to handle the final position instead
           }}
           animate={{
             x: pixieDustPosition.x + x,
