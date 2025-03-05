@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Code, Github, ExternalLink, CheckCircle } from 'lucide-react';
@@ -98,7 +99,7 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/repository-name/', // Replace with your repo name
+  base: '/repository-name/' // Replace with your repo name
 })`}
       />
       
