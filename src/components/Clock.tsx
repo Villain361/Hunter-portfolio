@@ -1,8 +1,10 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/clock.css';
 
 const Clock = () => {
+  const [location, setLocation] = useState('Location: Unknown');
+  
   useEffect(() => {
     function updateTimeAndDate() {
       const now = new Date();
@@ -36,7 +38,21 @@ const Clock = () => {
       }
     }
     
+    // Attempt to get user's location
+    const getLocation = async () => {
+      try {
+        // First try IP-based geolocation (mock)
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        setLocation('Location: Digital World');
+      } catch (error) {
+        console.error('Error getting location:', error);
+        setLocation('Location: Cyberspace');
+      }
+    };
+    
     updateTimeAndDate();
+    getLocation();
+    
     const interval = setInterval(updateTimeAndDate, 60000);
     
     return () => clearInterval(interval);
@@ -44,6 +60,8 @@ const Clock = () => {
 
   return (
     <div className="clock-container">
+      <div className="location-display mb-2 text-sm text-foreground/60">{location}</div>
+      
       <svg id="noise-svg">
         <filter id='noiseFilter'>
           <feTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch' />

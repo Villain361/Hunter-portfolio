@@ -1,19 +1,10 @@
 
 import React, { useEffect, useRef, useState } from 'react';
-import { FileText, Coffee, Code, Gamepad, Bot, Music, Book, Heart } from 'lucide-react';
+import { FileText, Coffee, Code, Gamepad, Bot, Music, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Clock from './Clock';
 import Weather from './Weather';
 import Quote from './Quote';
-
-const FunFact = ({ icon, fact }: { icon: React.ReactNode, fact: string }) => {
-  return (
-    <div className="flex items-start p-3 rounded-lg bg-primary/5 hover:bg-primary/10 transition-colors">
-      <div className="mr-3 text-primary">{icon}</div>
-      <p className="text-sm">{fact}</p>
-    </div>
-  );
-};
 
 const StatItem = ({ label, value }: { label: string, value: string }) => {
   return (
@@ -56,12 +47,28 @@ const About = () => {
 
   return (
     <section id="about" ref={sectionRef} className="section-padding px-6 md:px-12 relative">
-      {/* Custom Dynamic Background */}
+      {/* Enhanced Dynamic Background with Circuit Patterns */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-secondary/5 via-primary/5 to-secondary/5 opacity-70"></div>
         
+        {/* Circuit Board Pattern Overlay */}
+        <div 
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: `
+              radial-gradient(circle at 20% 20%, #007BFF 1px, transparent 1px),
+              radial-gradient(circle at 80% 40%, #9C27B0 1px, transparent 1px),
+              radial-gradient(circle at 40% 60%, #FFC107 1px, transparent 1px),
+              radial-gradient(circle at 70% 80%, #FF4081 1px, transparent 1px),
+              linear-gradient(#007BFF 1px, transparent 1px),
+              linear-gradient(to right, #007BFF 1px, transparent 1px)
+            `,
+            backgroundSize: '80px 80px, 70px 70px, 60px 60px, 50px 50px, 40px 40px, 40px 40px',
+          }}
+        ></div>
+        
         {/* Animated Background Elements */}
-        {[...Array(15)].map((_, i) => (
+        {[...Array(10)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute rounded-full bg-gradient-to-br from-primary/10 to-secondary/10 backdrop-blur-sm"
@@ -86,15 +93,6 @@ const About = () => {
             }}
           />
         ))}
-        
-        {/* Grid Pattern Overlay */}
-        <div 
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage: `linear-gradient(#007BFF 1px, transparent 1px), linear-gradient(to right, #007BFF 1px, transparent 1px)`,
-            backgroundSize: '40px 40px',
-          }}
-        ></div>
       </div>
       
       <div className="max-w-7xl mx-auto">
@@ -205,29 +203,6 @@ const About = () => {
               </p>
             </div>
             
-            {/* Fun Facts Section */}
-            <div className="mb-8 reveal opacity-0" style={{ transitionDelay: '0.7s' }}>
-              <h3 className="text-xl font-display font-semibold mb-4">Things I Enjoy</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <FunFact 
-                  icon={<Code size={18} />} 
-                  fact="Building Discord bots that help gaming communities stay connected and organized." 
-                />
-                <FunFact 
-                  icon={<Gamepad size={18} />} 
-                  fact="Exploring virtual worlds and creating custom tools to enhance gaming experiences." 
-                />
-                <FunFact 
-                  icon={<Bot size={18} />} 
-                  fact="Automating tasks with Python scripts to solve everyday problems." 
-                />
-                <FunFact 
-                  icon={<Coffee size={18} />} 
-                  fact="Late night coding sessions fueled by coffee and creative inspiration." 
-                />
-              </div>
-            </div>
-            
             <motion.a 
               href="#" 
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-medium transition-all hover:scale-105 active:scale-95 neon-glow reveal opacity-0"
@@ -241,9 +216,9 @@ const About = () => {
               <span>Download Resume</span>
             </motion.a>
             
-            {/* Add Clock Component */}
+            {/* Enhanced Clock Component */}
             <div className="mt-12 reveal opacity-0" style={{ transitionDelay: '0.9s' }}>
-              <h3 className="text-xl font-display font-semibold mb-4">Retro Clock</h3>
+              <h3 className="text-xl font-display font-semibold mb-4">Digital Time Capsule</h3>
               <Clock />
             </div>
           </div>

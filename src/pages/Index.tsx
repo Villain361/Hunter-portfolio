@@ -9,6 +9,7 @@ import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import ScrollToTop from '@/components/ScrollToTop';
 import MusicPlayer from '@/components/MusicPlayer';
+import GitHubPagesGuide from '@/components/GitHubPagesGuide';
 import { toast } from '@/components/ui/use-toast';
 import { isGitHubPages, getBasePath } from '@/utils/GithubPagesDeployment';
 
@@ -157,6 +158,22 @@ const Index = () => {
         <About />
         <Skills />
         <Projects />
+        <section id="github-pages-guide" className="section-padding px-6 md:px-12">
+          <div className="text-center mb-12">
+            <span className="inline-block mb-3 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium">
+              Deployment
+            </span>
+            
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
+              Deploy to GitHub Pages
+            </h2>
+            
+            <p className="max-w-2xl mx-auto text-foreground/80">
+              Want to host this portfolio on GitHub Pages? Follow this comprehensive guide!
+            </p>
+          </div>
+          <GitHubPagesGuide />
+        </section>
         <Contact />
       </main>
       <Footer />
