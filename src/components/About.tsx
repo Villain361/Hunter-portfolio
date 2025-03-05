@@ -2,6 +2,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { FileText, Coffee, Code, Gamepad, Bot, Music, Book, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
+import Clock from './Clock';
+import Weather from './Weather';
+import Quote from './Quote';
 
 const FunFact = ({ icon, fact }: { icon: React.ReactNode, fact: string }) => {
   return (
@@ -52,7 +55,48 @@ const About = () => {
   };
 
   return (
-    <section id="about" ref={sectionRef} className="section-padding px-6 md:px-12 bg-secondary/5">
+    <section id="about" ref={sectionRef} className="section-padding px-6 md:px-12 relative">
+      {/* Custom Dynamic Background */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-secondary/5 via-primary/5 to-secondary/5 opacity-70"></div>
+        
+        {/* Animated Background Elements */}
+        {[...Array(15)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute rounded-full bg-gradient-to-br from-primary/10 to-secondary/10 backdrop-blur-sm"
+            style={{
+              width: `${Math.random() * 300 + 50}px`,
+              height: `${Math.random() * 300 + 50}px`,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              opacity: 0.2 + Math.random() * 0.3,
+            }}
+            animate={{
+              x: [0, Math.random() * 40 - 20],
+              y: [0, Math.random() * 40 - 20],
+              rotate: [0, Math.random() * 20 - 10],
+              scale: [1, 1 + Math.random() * 0.2],
+            }}
+            transition={{
+              duration: 5 + Math.random() * 5,
+              repeat: Infinity,
+              repeatType: "reverse",
+              ease: "easeInOut"
+            }}
+          />
+        ))}
+        
+        {/* Grid Pattern Overlay */}
+        <div 
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: `linear-gradient(#007BFF 1px, transparent 1px), linear-gradient(to right, #007BFF 1px, transparent 1px)`,
+            backgroundSize: '40px 40px',
+          }}
+        ></div>
+      </div>
+      
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row gap-16">
           <div className="w-full md:w-5/12">
@@ -133,6 +177,12 @@ const About = () => {
                 </button>
               </div>
             </div>
+            
+            {/* Live Data Widgets */}
+            <div className="mt-8 space-y-4 reveal opacity-0" style={{ transitionDelay: '0.4s' }}>
+              <Weather />
+              <Quote />
+            </div>
           </div>
           
           <div className="w-full md:w-7/12">
@@ -178,7 +228,8 @@ const About = () => {
               </div>
             </div>
             
-            <motion.div 
+            <motion.a 
+              href="#" 
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-medium transition-all hover:scale-105 active:scale-95 neon-glow reveal opacity-0"
               style={{ transitionDelay: '0.8s' }}
               whileHover={{ 
@@ -188,7 +239,13 @@ const About = () => {
             >
               <FileText size={16} />
               <span>Download Resume</span>
-            </motion.div>
+            </motion.a>
+            
+            {/* Add Clock Component */}
+            <div className="mt-12 reveal opacity-0" style={{ transitionDelay: '0.9s' }}>
+              <h3 className="text-xl font-display font-semibold mb-4">Retro Clock</h3>
+              <Clock />
+            </div>
           </div>
         </div>
       </div>
