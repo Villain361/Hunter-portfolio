@@ -114,7 +114,6 @@ const Friends = () => {
         </div>
       </div>
       
-      {/* Custom animations for the section */}
       <style jsx>{`
         .friend-card {
           transform-style: preserve-3d;
